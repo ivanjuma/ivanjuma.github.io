@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ivan W. Juma | Technical Launch Lead</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --forest: #0d2b1f;
+  --forest-mid: #163d2d;
+  --forest-light: #1f5240;
+  --gold: #c9a84c;
+  --gold-light: #e8c97a;
+  --gold-pale: #f5ecd4;
+  --ivory: #faf7f0;
+  --ivory-dark: #f0ead8;
+  --ink: #0a1a12;
+  --muted: #5a6e63;
+  --muted-light: #8fa398;
+  --rule: #ddd8c8;
+  --white: #ffffff;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{font-family:'Outfit',sans-serif;background:var(--ivory);color:var(--ink);overflow-x:hidden;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--ivory);}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1.1rem 5vw;background:rgba(250,247,240,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,0.2);transition:box-shadow 0.3s;}
+nav.scrolled{box-shadow:0 2px 24px rgba(13,43,31,0.08);}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;letter-spacing:0.04em;color:var(--forest);text-decoration:none;}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;gap:2.8rem;list-style:none;}
+.nav-links a{font-size:0.73rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform 0.25s;}
+.nav-links a:hover{color:var(--forest);}
+.nav-links a:hover::after{transform:scaleX(1);}
+.nav-cta{background:var(--forest)!important;color:var(--gold-light)!important;padding:0.5rem 1.4rem!important;border-radius:2px;}
+.nav-cta::after{display:none!important;}
+
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;padding-top:80px;}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:6rem 5vw 6rem 5vw;position:relative;z-index:2;}
+.hero-eyebrow{display:flex;align-items:center;gap:0.8rem;margin-bottom:1.8rem;opacity:0;animation:fadeUp 0.6s ease forwards 0.2s;}
+.eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+.eyebrow-text{font-size:0.72rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);}
+.hero-name{font-family:'Cormorant Garamond',serif;font-size:clamp(3.4rem,5.5vw,6rem);font-weight:300;line-height:1.02;letter-spacing:-0.01em;color:var(--forest);opacity:0;animation:fadeUp 0.7s ease forwards 0.35s;}
+.hero-name strong{font-weight:700;display:block;}
+.hero-name em{font-style:italic;color:var(--gold);font-weight:300;}
+.hero-rule{width:60px;height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin:2rem 0;opacity:0;animation:fadeUp 0.7s ease forwards 0.48s;}
+.hero-tagline{font-size:1rem;font-weight:300;color:var(--muted);line-height:1.75;max-width:420px;opacity:0;animation:fadeUp 0.7s ease forwards 0.55s;}
+.hero-actions{display:flex;gap:1rem;margin-top:2.8rem;flex-wrap:wrap;opacity:0;animation:fadeUp 0.7s ease forwards 0.68s;}
+.btn-gold{background:var(--gold);color:var(--forest);padding:0.9rem 2.2rem;border-radius:2px;font-size:0.78rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:background 0.2s,transform 0.15s;display:inline-block;}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px);}
+.btn-outline{background:transparent;color:var(--forest);border:1.5px solid var(--forest);padding:0.9rem 2.2rem;border-radius:2px;font-size:0.78rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:all 0.2s;}
+.btn-outline:hover{background:var(--forest);color:var(--gold-light);transform:translateY(-2px);}
+.hero-metrics{display:flex;gap:3rem;margin-top:4rem;padding-top:2.5rem;border-top:1px solid var(--rule);opacity:0;animation:fadeUp 0.7s ease forwards 0.82s;}
+.metric-val{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:700;color:var(--forest);line-height:1;}
+.metric-val span{color:var(--gold);}
+.metric-lbl{font-size:0.7rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:0.3rem;line-height:1.4;}
+
+.hero-right{background:var(--forest);display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden;padding:4rem 3rem;}
+.hero-bg-monogram{position:absolute;right:-0.05em;bottom:-0.15em;font-family:'Cormorant Garamond',serif;font-size:28vw;font-weight:700;color:rgba(201,168,76,0.05);line-height:1;user-select:none;pointer-events:none;}
+.hero-profile-card{position:relative;z-index:2;background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.2);border-radius:4px;padding:2.8rem 2.5rem;width:100%;max-width:380px;}
+.profile-card-top{display:flex;align-items:center;gap:1rem;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(201,168,76,0.15);}
+.profile-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--gold) 0%,var(--forest-light) 100%);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--ivory);flex-shrink:0;}
+.profile-name{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--ivory);}
+.profile-role{font-size:0.72rem;color:rgba(201,168,76,0.8);letter-spacing:0.06em;margin-top:0.15rem;}
+.status-badge{display:inline-flex;align-items:center;gap:0.45rem;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.25);border-radius:100px;padding:0.3rem 0.85rem;margin-bottom:1.8rem;}
+.status-dot{width:6px;height:6px;border-radius:50%;background:#4ade80;flex-shrink:0;animation:pulse 2s infinite;}
+.status-text{font-size:0.72rem;color:rgba(201,168,76,0.9);font-weight:500;letter-spacing:0.06em;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+.profile-skills-label{font-size:0.65rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.9rem;}
+.profile-pills{display:flex;flex-wrap:wrap;gap:0.45rem;margin-bottom:1.8rem;}
+.ppill{font-size:0.7rem;font-weight:500;padding:0.3rem 0.75rem;border-radius:100px;border:1px solid;}
+.ppill-gold{color:var(--gold);border-color:rgba(201,168,76,0.35);background:rgba(201,168,76,0.08);}
+.ppill-light{color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);}
+.profile-divider{height:1px;background:rgba(201,168,76,0.12);margin:0 0 1.5rem;}
+.profile-contacts{display:flex;flex-direction:column;gap:0.75rem;}
+.profile-contact-item{display:flex;align-items:center;gap:0.75rem;font-size:0.8rem;color:rgba(255,255,255,0.55);text-decoration:none;transition:color 0.2s;}
+.profile-contact-item:hover{color:var(--gold-light);}
+.contact-icon-box{width:28px;height:28px;border-radius:4px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.18);display:flex;align-items:center;justify-content:center;font-size:0.75rem;flex-shrink:0;}
+
+.about-strip{background:var(--forest);padding:5rem 5vw;display:flex;gap:5rem;align-items:center;flex-wrap:wrap;}
+.about-quote{flex:1;min-width:300px;font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,2.5vw,2.2rem);font-weight:300;font-style:italic;color:var(--ivory);line-height:1.5;}
+.about-quote strong{font-weight:600;font-style:normal;color:var(--gold-light);}
+.about-body{flex:1.2;min-width:300px;}
+.about-body p{font-size:0.92rem;font-weight:300;color:rgba(250,247,240,0.65);line-height:1.85;margin-bottom:1rem;}
+.about-body p:last-child{margin-bottom:0;}
+
+.section{padding:7rem 5vw;position:relative;}
+.section-label{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;}
+.label-num{font-family:'Cormorant Garamond',serif;font-size:0.75rem;font-weight:600;color:var(--gold);letter-spacing:0.08em;}
+.label-line{flex:1;height:1px;background:var(--rule);}
+.section-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:600;color:var(--forest);margin-bottom:3.5rem;line-height:1.1;}
+.section-heading em{font-weight:300;font-style:italic;color:var(--gold);}
+
+#projects{background:var(--ivory);}
+.projects-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1.5rem;}
+
+.project-featured{grid-column:span 8;background:var(--forest);border-radius:4px;overflow:hidden;display:flex;flex-direction:column;transition:transform 0.3s;min-height:480px;}
+.project-featured:hover{transform:translateY(-4px);}
+.project-featured .proj-top{padding:3rem 3rem 2rem;flex:1;display:flex;flex-direction:column;}
+.project-featured .proj-visual{height:180px;background:rgba(201,168,76,0.08);border-top:1px solid rgba(201,168,76,0.1);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+
+.project-side{grid-column:span 4;background:var(--ivory-dark);border:1px solid var(--rule);border-radius:4px;overflow:hidden;display:flex;flex-direction:column;transition:transform 0.3s,box-shadow 0.3s;}
+.project-side:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(13,43,31,0.1);}
+.project-side .proj-top{padding:2rem 2rem 1.5rem;flex:1;display:flex;flex-direction:column;}
+.project-side .proj-visual{height:100px;background:var(--ivory);border-top:1px solid var(--rule);display:flex;align-items:center;justify-content:center;}
+
+.project-wide{grid-column:span 6;background:var(--white);border:1px solid var(--rule);border-radius:4px;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s;}
+.project-wide:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(13,43,31,0.08);}
+.project-wide .proj-top{padding:2.5rem;}
+.project-wide .proj-visual{height:120px;background:var(--ivory-dark);border-top:1px solid var(--rule);display:flex;align-items:center;justify-content:center;}
+
+.proj-category{font-size:0.65rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:1rem;}
+.proj-category.light{color:rgba(201,168,76,0.7);}
+.proj-category.dark{color:var(--gold);}
+.proj-title{font-family:'Cormorant Garamond',serif;font-weight:700;line-height:1.2;margin-bottom:0.9rem;}
+.proj-title.light{color:var(--ivory);font-size:1.6rem;}
+.proj-title.dark{color:var(--forest);font-size:1.3rem;}
+.proj-desc{font-size:0.84rem;font-weight:300;line-height:1.75;flex:1;}
+.proj-desc.light{color:rgba(250,247,240,0.65);}
+.proj-desc.dark{color:var(--muted);}
+.proj-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1.2rem;}
+.proj-tag{font-size:0.67rem;font-weight:500;padding:0.25rem 0.65rem;border-radius:100px;border:1px solid;}
+.proj-tag.light{color:rgba(201,168,76,0.8);border-color:rgba(201,168,76,0.25);background:rgba(201,168,76,0.06);}
+.proj-tag.dark{color:var(--muted);border-color:var(--rule);background:transparent;}
+.proj-tag.forest{color:var(--forest);border-color:rgba(13,43,31,0.2);background:rgba(13,43,31,0.04);}
+.proj-metric{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;}
+.proj-metric.gold{color:var(--gold-light);}
+.proj-metric.forest{color:var(--forest);}
+.proj-metric-label{font-size:0.72rem;font-weight:400;letter-spacing:0.06em;}
+.proj-metric-label.light{color:rgba(250,247,240,0.45);}
+.proj-metric-label.dark{color:var(--muted-light);}
+
+#experience{background:var(--forest-mid);}
+#experience .section-heading{color:var(--ivory);}
+#experience .label-line{background:rgba(201,168,76,0.2);}
+.exp-items{display:flex;flex-direction:column;gap:0;}
+.exp-entry{display:grid;grid-template-columns:200px 1fr;gap:0 3.5rem;padding:3rem 0;border-bottom:1px solid rgba(201,168,76,0.1);position:relative;}
+.exp-entry:first-child{padding-top:0;}
+.exp-entry:last-child{border-bottom:none;padding-bottom:0;}
+.exp-entry::before{content:'';position:absolute;left:200px;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,0.15);}
+.exp-left{text-align:right;padding-right:3rem;}
+.exp-period{font-size:0.72rem;font-weight:500;color:var(--gold);letter-spacing:0.08em;margin-bottom:0.4rem;}
+.exp-org{font-size:0.78rem;color:rgba(250,247,240,0.4);font-weight:300;}
+.exp-right{padding-left:3rem;border-left:1px solid rgba(201,168,76,0.15);}
+.exp-role-title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:var(--ivory);margin-bottom:1rem;}
+.exp-points{list-style:none;display:flex;flex-direction:column;gap:0.55rem;}
+.exp-points li{font-size:0.84rem;font-weight:300;color:rgba(250,247,240,0.6);line-height:1.7;padding-left:1.2rem;position:relative;}
+.exp-points li::before{content:'';position:absolute;left:0;top:0.65em;width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:0.6;}
+
+#skills{background:var(--ivory);}
+.skills-layout{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;}
+.skill-card{background:var(--white);border:1px solid var(--rule);border-radius:4px;padding:2rem;transition:transform 0.25s,box-shadow 0.25s;}
+.skill-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(13,43,31,0.07);}
+.skill-card-top{display:flex;align-items:center;gap:0.9rem;margin-bottom:1.5rem;}
+.skill-card-icon{width:38px;height:38px;border-radius:4px;background:var(--gold-pale);border:1px solid rgba(201,168,76,0.25);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.skill-card-title{font-size:0.82rem;font-weight:600;color:var(--forest);letter-spacing:0.04em;}
+.skill-items{list-style:none;display:flex;flex-direction:column;gap:0.5rem;}
+.skill-items li{font-size:0.82rem;font-weight:300;color:var(--muted);display:flex;align-items:center;gap:0.6rem;}
+.skill-items li::before{content:'';width:3px;height:3px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+
+#contact{background:var(--forest);}
+#contact .section-heading{color:var(--ivory);}
+#contact .label-line{background:rgba(201,168,76,0.2);}
+.contact-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:6rem;align-items:start;}
+.contact-intro{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,2.5vw,2.4rem);font-weight:300;font-style:italic;color:var(--ivory);line-height:1.4;margin-bottom:1.5rem;}
+.contact-sub{font-size:0.9rem;font-weight:300;color:rgba(250,247,240,0.5);line-height:1.8;margin-bottom:2.5rem;}
+.contact-cards{display:flex;flex-direction:column;gap:1rem;}
+.contact-card{display:flex;align-items:center;gap:1.2rem;background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.15);border-radius:4px;padding:1.1rem 1.4rem;color:rgba(250,247,240,0.7);text-decoration:none;font-size:0.86rem;font-weight:300;transition:background 0.2s,border-color 0.2s,color 0.2s;}
+.contact-card:hover{background:rgba(201,168,76,0.08);border-color:rgba(201,168,76,0.35);color:var(--gold-light);}
+.contact-card-icon{width:34px;height:34px;border-radius:3px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.2);display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;}
+
+footer{background:var(--ink);padding:2rem 5vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+footer p{font-size:0.75rem;color:rgba(255,255,255,0.25);}
+footer a{font-size:0.75rem;color:rgba(255,255,255,0.25);text-decoration:none;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-d1{transition-delay:0.1s;}
+.reveal-d2{transition-delay:0.2s;}
+.reveal-d3{transition-delay:0.3s;}
+
+@media(max-width:860px){
+  .nav-links{display:none;}
+  .hero{grid-template-columns:1fr;}
+  .hero-right{display:none;}
+  .hero-left{padding:3rem 5vw 4rem;}
+  .about-strip{flex-direction:column;gap:2.5rem;}
+  .projects-grid{grid-template-columns:1fr;}
+  .project-featured,.project-side,.project-wide{grid-column:span 1;}
+  .exp-entry{grid-template-columns:1fr;gap:0.5rem;}
+  .exp-entry::before{display:none;}
+  .exp-left{text-align:left;padding-right:0;}
+  .exp-right{padding-left:0;border-left:none;border-top:1px solid rgba(201,168,76,0.15);padding-top:1rem;}
+  .contact-layout{grid-template-columns:1fr;gap:2.5rem;}
+  footer{flex-direction:column;align-items:center;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <a href="#" class="nav-logo">Ivan<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact" class="nav-cta">Hire Me</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-dot"></span>
+      <span class="eyebrow-text">Open to New Opportunities &nbsp;·&nbsp; Nairobi, Kenya</span>
+    </div>
+    <h1 class="hero-name">
+      Ivan W.<br>
+      <strong>Juma</strong><br>
+      <em>Technical Launch Lead</em>
+    </h1>
+    <div class="hero-rule"></div>
+    <p class="hero-tagline">I deploy platforms, activate markets and build the operational foundations that make launches succeed. From server room to field execution.</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-gold">View My Work</a>
+      <a href="#contact" class="btn-outline">Let's Talk</a>
+    </div>
+    <div class="hero-metrics">
+      <div>
+        <div class="metric-val">5<span>+</span></div>
+        <div class="metric-lbl">Years in<br>IT Operations</div>
+      </div>
+      <div>
+        <div class="metric-val">98<span>%</span></div>
+        <div class="metric-lbl">System<br>Uptime</div>
+      </div>
+      <div>
+        <div class="metric-val">30<span>%</span></div>
+        <div class="metric-lbl">Faster Incident<br>Resolution</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-bg-monogram">IJ</div>
+    <div class="hero-profile-card">
+      <div class="profile-card-top">
+        <div class="profile-avatar">IJ</div>
+        <div>
+          <div class="profile-name">Ivan W. Juma</div>
+          <div class="profile-role">Technical Launch Lead</div>
+        </div>
+      </div>
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        <span class="status-text">Available for hire</span>
+      </div>
+      <div class="profile-skills-label">Core Expertise</div>
+      <div class="profile-pills">
+        <span class="ppill ppill-gold">Platform Deployment</span>
+        <span class="ppill ppill-gold">Field Operations</span>
+        <span class="ppill ppill-light">Market Activation</span>
+        <span class="ppill ppill-light">Team Leadership</span>
+        <span class="ppill ppill-light">IT Infrastructure</span>
+        <span class="ppill ppill-light">Hokela Platform</span>
+      </div>
+      <div class="profile-divider"></div>
+      <div class="profile-contacts">
+        <a href="tel:+254715774810" class="profile-contact-item">
+          <div class="contact-icon-box">📞</div>
+          +254 715 774 810
+        </a>
+        <a href="mailto:ivanwjuma@gmail.com" class="profile-contact-item">
+          <div class="contact-icon-box">✉️</div>
+          ivanwjuma@gmail.com
+        </a>
+        <a href="https://linkedin.com/in/ivanjuma" target="_blank" class="profile-contact-item">
+          <div class="contact-icon-box">💼</div>
+          linkedin.com/in/ivanjuma
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT STRIP -->
+<div class="about-strip">
+  <div class="about-quote">
+    "I bridge the gap between <strong>technical infrastructure</strong> and the people who depend on it in the field."
+  </div>
+  <div class="about-body">
+    <p>My career spans government ICT operations, enterprise infrastructure management and FMCG brand activation. I know what it means to keep systems running under pressure, and I know what it means to lead a team in the field when every minute counts.</p>
+    <p>I bring an entrepreneurial mindset to every deployment — building not just for launch day, but for the months that follow. If you need someone who can architect the solution and execute it on the ground, that is precisely what I do.</p>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section class="section" id="projects">
+  <div class="section-label">
+    <span class="label-num">01 / Projects</span>
+    <div class="label-line"></div>
+  </div>
+  <h2 class="section-heading">Selected <em>Work</em></h2>
+
+  <div class="projects-grid">
+
+    <!-- FEATURED -->
+    <div class="project-featured reveal">
+      <div class="proj-top">
+        <div class="proj-category light">Field Operations &amp; Market Activation</div>
+        <h3 class="proj-title light">Royco Ramadan Community Activation</h3>
+        <p class="proj-desc light">Led end-to-end field activation for Unilever's Royco Mchuzi Mix campaign across two high-footfall community mosques during Ramadan. Managed all logistics, team coordination, brand execution and real-time reporting through the Hokela platform. Culturally adapted the campaign to Ramadan traditions of generosity and community, achieving strong brand resonance with zero operational disruptions from briefing to post-activation reporting.</p>
+        <div class="proj-tags">
+          <span class="proj-tag light">Hokela Platform</span>
+          <span class="proj-tag light">Team Leadership</span>
+          <span class="proj-tag light">Cultural Localization</span>
+          <span class="proj-tag light">Consumer Engagement</span>
+          <span class="proj-tag light">Field Reporting</span>
+        </div>
+      </div>
+      <div class="proj-visual">
+        <div style="display:flex;gap:3.5rem;align-items:center;">
+          <div style="text-align:center;">
+            <div class="proj-metric gold">750+</div>
+            <div class="proj-metric-label light">Samples Distributed</div>
+          </div>
+          <div style="width:1px;height:50px;background:rgba(201,168,76,0.2);"></div>
+          <div style="text-align:center;">
+            <div class="proj-metric gold">2</div>
+            <div class="proj-metric-label light">Venues Activated</div>
+          </div>
+          <div style="width:1px;height:50px;background:rgba(201,168,76,0.2);"></div>
+          <div style="text-align:center;">
+            <div class="proj-metric gold">0</div>
+            <div class="proj-metric-label light">Disruptions</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIDE -->
+    <div class="project-side reveal reveal-d1">
+      <div class="proj-top">
+        <div class="proj-category dark">Brand Intelligence</div>
+        <h3 class="proj-title dark">Unilever Campaign Intelligence Reports</h3>
+        <p class="proj-desc dark">Synthesized consumer feedback, engagement metrics and brand sentiment from the field into structured insight reports that directly informed Unilever's campaign strategy. Met all agency KPIs within single-day deployments.</p>
+        <div class="proj-tags">
+          <span class="proj-tag forest">Data Capture</span>
+          <span class="proj-tag forest">Brand Reporting</span>
+          <span class="proj-tag forest">Consumer Insights</span>
+        </div>
+      </div>
+      <div class="proj-visual">
+        <div style="display:flex;gap:0.5rem;align-items:flex-end;padding:0 1rem;">
+          <div style="height:40px;width:14px;border-radius:2px 2px 0 0;background:rgba(201,168,76,0.2);"></div>
+          <div style="height:55px;width:14px;border-radius:2px 2px 0 0;background:rgba(201,168,76,0.35);"></div>
+          <div style="height:48px;width:14px;border-radius:2px 2px 0 0;background:rgba(201,168,76,0.25);"></div>
+          <div style="height:70px;width:14px;border-radius:2px 2px 0 0;background:var(--gold);"></div>
+          <div style="height:62px;width:14px;border-radius:2px 2px 0 0;background:rgba(201,168,76,0.5);"></div>
+          <div style="height:75px;width:14px;border-radius:2px 2px 0 0;background:var(--gold);"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WIDE 1 -->
+    <div class="project-wide reveal">
+      <div class="proj-top">
+        <div class="proj-category dark">Infrastructure &amp; Systems</div>
+        <h3 class="proj-title dark">Multi-Site IT Infrastructure Rollout</h3>
+        <p class="proj-desc dark">Planned and executed full deployment of IT infrastructure across multiple sites: servers, LAN/WAN networks, VPNs, firewalls, Active Directory and enterprise software. Maintained 98% system uptime across 50+ users for 7 years through proactive monitoring and structured maintenance cycles.</p>
+        <div class="proj-tags">
+          <span class="proj-tag dark">Windows Server</span>
+          <span class="proj-tag dark">Active Directory</span>
+          <span class="proj-tag dark">VPN / Firewall</span>
+          <span class="proj-tag dark">DHCP/DNS</span>
+        </div>
+      </div>
+      <div class="proj-visual">
+        <div style="display:flex;gap:2.5rem;align-items:center;">
+          <div style="text-align:center;">
+            <div class="proj-metric forest" style="color:var(--gold);">98<span style="font-size:1.1rem;">%</span></div>
+            <div class="proj-metric-label dark">Uptime Achieved</div>
+          </div>
+          <div style="text-align:center;">
+            <div class="proj-metric forest">50<span style="font-size:1.1rem;color:var(--gold);">+</span></div>
+            <div class="proj-metric-label dark">Users Supported</div>
+          </div>
+          <div style="text-align:center;">
+            <div class="proj-metric forest">7</div>
+            <div class="proj-metric-label dark">Years Maintained</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WIDE 2 -->
+    <div class="project-wide reveal reveal-d2">
+      <div class="proj-top">
+        <div class="proj-category dark">Process Optimization</div>
+        <h3 class="proj-title dark">Incident Response System Redesign</h3>
+        <p class="proj-desc dark">Redesigned the incident escalation and documentation framework at Novick Solutions — introducing structured escalation protocols, standardized SOPs and clear ownership matrices. Achieved a measurable 30% reduction in mean time-to-resolution.</p>
+        <div class="proj-tags">
+          <span class="proj-tag dark">SOP Development</span>
+          <span class="proj-tag dark">Escalation Frameworks</span>
+          <span class="proj-tag dark">Documentation</span>
+        </div>
+      </div>
+      <div class="proj-visual">
+        <div style="display:flex;gap:2.5rem;align-items:center;">
+          <div style="text-align:center;">
+            <div class="proj-metric forest" style="color:var(--gold);">30<span style="font-size:1.1rem;">%</span></div>
+            <div class="proj-metric-label dark">Faster Resolution</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;align-items:center;gap:10px;font-size:0.72rem;color:var(--muted);">
+              <div style="height:7px;width:90px;background:var(--rule);border-radius:3px;overflow:hidden;"><div style="height:100%;width:70%;background:#e2b866;border-radius:3px;"></div></div>
+              Before
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:0.72rem;color:var(--muted);">
+              <div style="height:7px;width:90px;background:var(--rule);border-radius:3px;overflow:hidden;"><div style="height:100%;width:40%;background:var(--forest);border-radius:3px;"></div></div>
+              After
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIDE 2 -->
+    <div class="project-side reveal reveal-d1">
+      <div class="proj-top">
+        <div class="proj-category dark">Public Sector Technology</div>
+        <h3 class="proj-title dark">Huduma Centre Platform Continuity</h3>
+        <p class="proj-desc dark">Maintained ICT service continuity across multiple public-facing service stations serving thousands of Kenyans. Rapid failure escalation contributed to zero service disruptions across all operational sites during a 4-year tenure.</p>
+        <div class="proj-tags">
+          <span class="proj-tag forest">Government ICT</span>
+          <span class="proj-tag forest">Zero Downtime</span>
+        </div>
+      </div>
+      <div class="proj-visual">
+        <div style="text-align:center;">
+          <div class="proj-metric forest" style="font-size:1.6rem;">Zero</div>
+          <div class="proj-metric-label dark" style="font-size:0.68rem;">Service Disruptions</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIDE 3 -->
+    <div class="project-side reveal reveal-d2">
+      <div class="proj-top">
+        <div class="proj-category dark">Training &amp; Enablement</div>
+        <h3 class="proj-title dark">Enterprise Platform Onboarding Programme</h3>
+        <p class="proj-desc dark">Built and delivered training programmes, user guides and instructional materials for 50+ staff that significantly reduced ramp-up time and accelerated platform adoption across the organization.</p>
+        <div class="proj-tags">
+          <span class="proj-tag forest">Training Design</span>
+          <span class="proj-tag forest">Change Management</span>
+        </div>
+      </div>
+      <div class="proj-visual">
+        <div style="text-align:center;">
+          <div class="proj-metric forest">50<span style="font-size:1.1rem;color:var(--gold);">+</span></div>
+          <div class="proj-metric-label dark" style="font-size:0.68rem;">Staff Trained</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section" id="experience">
+  <div class="section-label">
+    <span class="label-num" style="color:var(--gold);">02 / Experience</span>
+    <div class="label-line" style="background:rgba(201,168,76,0.2);"></div>
+  </div>
+  <h2 class="section-heading" style="color:var(--ivory);">Career <em>Timeline</em></h2>
+  <div class="exp-items">
+    <div class="exp-entry reveal">
+      <div class="exp-left">
+        <div class="exp-period">Mar – Apr 2026</div>
+        <div class="exp-org">Brisk Marketing<br>Royco / Unilever</div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-role-title">Field Team Lead, Ramadan Community Activation</div>
+        <ul class="exp-points">
+          <li>Directed full activation lifecycle across two mosques including briefing, setup, execution and post-activation reporting with zero operational failures</li>
+          <li>Operated directly on Hokela platform for real-time data capture, activity logs and brand KPI alignment</li>
+          <li>Coordinated distribution of 750-850 product samples with culturally sensitive localization for Ramadan context</li>
+          <li>Produced structured field intelligence reports synthesizing consumer sentiment and brand impact for Unilever brand managers</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exp-entry reveal">
+      <div class="exp-left">
+        <div class="exp-period">Oct 2018 – Nov 2025</div>
+        <div class="exp-org">Novick Solutions</div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-role-title">IT Support Specialist &amp; Technical Team Lead</div>
+        <ul class="exp-points">
+          <li>Architected and deployed multi-site IT infrastructure: servers, VPNs, LAN/WAN, firewalls and enterprise software</li>
+          <li>Sustained 98% system uptime across 50+ users through proactive monitoring, root-cause analysis and structured maintenance</li>
+          <li>Reduced incident resolution time by 30% through redesigned escalation and documentation frameworks</li>
+          <li>Led onboarding and training of 50+ staff with purpose-built user guides that accelerated platform adoption</li>
+          <li>Enforced security and compliance frameworks: firewall policies, access control, antivirus and risk monitoring</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exp-entry reveal">
+      <div class="exp-left">
+        <div class="exp-period">Aug 2014 – May 2018</div>
+        <div class="exp-org">Huduma Centre<br>Government of Kenya</div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-role-title">Junior Technical Support Specialist</div>
+        <ul class="exp-points">
+          <li>Maintained ICT service continuity across multiple public-facing service stations with zero disruptions</li>
+          <li>Deployed and configured OS, software and drivers across service counters and administrative departments</li>
+          <li>Provided technical coaching to non-technical staff, improving digital platform confidence and competency</li>
+          <li>Supported data backup, user access controls and cybersecurity aligned with government ICT policy</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section" id="skills">
+  <div class="section-label">
+    <span class="label-num">03 / Skills</span>
+    <div class="label-line"></div>
+  </div>
+  <h2 class="section-heading">Technical <em>Toolkit</em></h2>
+  <div class="skills-layout">
+    <div class="skill-card reveal">
+      <div class="skill-card-top"><div class="skill-card-icon">🚀</div><div class="skill-card-title">Operations &amp; Launch</div></div>
+      <ul class="skill-items">
+        <li>Platform Deployment &amp; Launch</li><li>Market Activation</li><li>Field Team Leadership</li>
+        <li>Agent Recruitment &amp; Training</li><li>Operational Infrastructure Setup</li><li>Bottleneck Identification</li>
+      </ul>
+    </div>
+    <div class="skill-card reveal reveal-d1">
+      <div class="skill-card-top"><div class="skill-card-icon">🖥️</div><div class="skill-card-title">Platforms &amp; Tools</div></div>
+      <ul class="skill-items">
+        <li>Hokela Platform</li><li>MS 365 Admin</li><li>Google Workspace</li>
+        <li>Windows Server</li><li>Active Directory</li><li>VMware / VirtualBox</li>
+      </ul>
+    </div>
+    <div class="skill-card reveal reveal-d2">
+      <div class="skill-card-top"><div class="skill-card-icon">🔧</div><div class="skill-card-title">Infrastructure &amp; Networking</div></div>
+      <ul class="skill-items">
+        <li>LAN / WAN / VPNs / Firewalls</li><li>DHCP / DNS</li><li>RDP / TeamViewer / Anydesk</li>
+        <li>Access Control</li><li>Threat Monitoring</li><li>Risk Management</li>
+      </ul>
+    </div>
+    <div class="skill-card reveal reveal-d3">
+      <div class="skill-card-top"><div class="skill-card-icon">📊</div><div class="skill-card-title">Strategy &amp; Stakeholders</div></div>
+      <ul class="skill-items">
+        <li>Field Reporting &amp; Data Capture</li><li>Stakeholder Management</li><li>Compliance Awareness</li>
+        <li>BD Support &amp; Partnerships</li><li>SOP Development</li><li>Product Localization</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="section-label">
+    <span class="label-num" style="color:var(--gold);">04 / Contact</span>
+    <div class="label-line" style="background:rgba(201,168,76,0.2);"></div>
+  </div>
+  <div class="contact-layout">
+    <div class="reveal">
+      <h2 class="section-heading" style="color:var(--ivory);margin-bottom:0.5rem;">Ready to <em>build</em><br>something that works?</h2>
+      <p class="contact-intro">Every great launch starts with the right person in the room.</p>
+      <p class="contact-sub">I'm open to roles in platform launch, field operations, technical project management and market activation across Africa and beyond. If you're expanding into new markets or need a reliable operator to lead your next deployment, let's have that conversation.</p>
+      <a href="mailto:ivanwjuma@gmail.com" class="btn-gold">Send Me an Email</a>
+    </div>
+    <div class="contact-cards reveal reveal-d1">
+      <a href="tel:+254715774810" class="contact-card"><div class="contact-card-icon">📞</div>+254 715 774 810</a>
+      <a href="mailto:ivanwjuma@gmail.com" class="contact-card"><div class="contact-card-icon">✉️</div>ivanwjuma@gmail.com</a>
+      <a href="https://linkedin.com/in/ivanjuma" target="_blank" class="contact-card"><div class="contact-card-icon">💼</div>linkedin.com/in/ivanjuma</a>
+      <div class="contact-card" style="cursor:default;"><div class="contact-card-icon">📍</div>Nairobi, Kenya &nbsp;·&nbsp; Open to Remote</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Ivan W. Juma. All rights reserved.</p>
+  <a href="mailto:ivanwjuma@gmail.com">ivanwjuma@gmail.com</a>
+</footer>
+
+<script>
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); });
+const io = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
